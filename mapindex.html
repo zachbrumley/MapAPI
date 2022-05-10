@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title></title>
     <meta charset="utf-8" />
-
     <!-- Reference to the Bing Maps SDK -->
    <script type="text/javascript" src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AhIiBnir2ooVR3-ozNIk7kd-NCiAKE0M7mBByPngxrELAl4e2kfZx200kR0JdWRK'></script>
-<script type="text/javascript" src='script.js'></script>
-    
+<script type="text/javascript" src='script.js'></script>  
 </head>
 
 <body onload='GetMap(), GeoLocate();'>
+    
+    <div id="menu">
+        <form>
+            <input type="text" placeholder="Nearby Interests..." list="POI" id="PointsOfInterest">
 
-    <div id="menu" style="z-index:2;">
-            <label for="POIs">Choose a POI:</label>
-            <select name="pois" id="myPois">
-                <option value="Gas">Gas</option>
-                <option value="Grocery">Grocery</option>
-                <option value="Hospital">Hospital</option>
-                <option value="Food">Food</option>
-            </select>
+            <datalist id="POI">
+                <option value="Restaurant">
+                <option value="Fast Food">
+                <option value="Gas Station">
+                <option value="Coffee Shop">
+                <option value="Hotel">
+                <option value="Shopping">
+                <option value="Grocery Store">
+                <option value="Bank">
+                <option value="Pharmacy">
+            </datalist>
+        </form>
+            <button id="search" onclick="SearchByType();">Search</button>
         </div>
         
-
-
-
-    <div id="myMap" style="position:bottom; width:auto; height: 728px; z-index: 1;">
+        
+    <div id="myMap" style="position:bottom; width:auto; height: 728px;">
         
         
         
