@@ -5,42 +5,32 @@
     <meta charset="utf-8" />
     <!-- Reference to the Bing Maps SDK -->
    <script type="text/javascript" src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AhIiBnir2ooVR3-ozNIk7kd-NCiAKE0M7mBByPngxrELAl4e2kfZx200kR0JdWRK'></script>
-<script type="text/javascript" src='script.js'></script>  
+   <link rel="stylesheet" href="stylesheet.css">
+   <script type="text/javascript" src='script.js'></script>  
 </head>
 
 <body onload='GetMap(), GeoLocate();'>
     
     <div id="menu">
-        <form>
-            <input type="text" placeholder="Nearby Interests..." list="POI" id="PointsOfInterest">
-
-            <datalist id="POI">
-                <option value="Restaurant">
-                <option value="Fast Food">
-                <option value="Gas Station">
-                <option value="Coffee Shop">
-                <option value="Hotel">
-                <option value="Shopping">
-                <option value="Grocery Store">
-                <option value="Bank">
-                <option value="Pharmacy">
-            </datalist>
+        <form>           
+            <select name="points" id="POI">
+                <option value="Restaurant">Restaurant</option>
+                <option value="Fast Food">Fast Food</option>
+                <option value="Gas Station">Gas Station</option>
+                <option value="Coffee Shop">Coffee Shop</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Grocery Store">Grocery Store</option>
+                <option value="Bank">Bank</option>
+                <option value="Pharmacy">Pharmacy</option>
+            </select>
+            <input type="Search" placeholder="Keywords..." id="SearchBox">
             <button id="search" type="button" onclick="SearchByType();">Search</button>
         </form>
-            
         </div>
+    <div id="myMap" style="position:bottom; width:100vw; height: 100vh;">
         
         
-    <div id="myMap" style="position:bottom; width:auto; height: 728px;">
-        
-        
-        
-    
-    
-    
     </div>
-
-    
 </body>
-
 </html>

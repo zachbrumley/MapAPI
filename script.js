@@ -3,8 +3,9 @@ var lat;
 var lon;
 var map;
 var pushpins = [];
+var infoboxes = [];
 
-function GetMap() {
+function GetMap() {//declare map variable
     map = new Microsoft.Maps.Map(document.getElementById('myMap'), {});     
  }
  
@@ -18,7 +19,7 @@ function GetMap() {
 function GetUserLocation(position) {
         lat = position.coords.latitude;
         lon = position.coords.longitude;   
- 
+            //set user location pushpin
         UpdateUserLocation();
 }
  
@@ -44,20 +45,18 @@ function GetUserLocation(position) {
 }
 
     function SearchByType(poiSearchValue){
-        var select = document.getElementById("PointsOfInterest").value;
-        var requestUrl = "https://dev.virtualearth.net/REST/v1/LocalSearch/?query=" + select + "&userLocation=" + lat + "," + lon +"&key=AhIiBnir2ooVR3-ozNIk7kd-NCiAKE0M7mBByPngxrELAl4e2kfZx200kR0JdWRK"
-        //var value = select.options[select.selectedIndex.value];
-
+        var select = document.getElementById("POI").value;  //get select search option
+        var Keyword = document.getElementById("SearchBox").value;   //get keywords to filter     add select search query and any keywords
+        var requestUrl = "https://dev.virtualearth.net/REST/v1/LocalSearch/?query=" + select + Keyword + "&userLocation=" + lat + "," + lon +"&key=AhIiBnir2ooVR3-ozNIk7kd-NCiAKE0M7mBByPngxrELAl4e2kfZx200kR0JdWRK"
         
-        fetch(requestUrl)
+        fetch(requestUrl)   //send fetch request
         .then((response) => {
-            return response.text();
+            return response.text(); //return response
         })
         .then(function (data) {
             //parse data into object
             jsonData = JSON.parse(data);
             
-            //call function
             GetPoiData(jsonData);
         });//end fetch
     }//end function
@@ -76,7 +75,13 @@ function GetUserLocation(position) {
         let coords = [];
         let poiLat = [];
         let poiLon = [];
-        let pin = [];
+        let infobox = [];
+
+        infobox[i] = new Microsoft.Maps.Infobox(map.getCenter(), {
+            visible: false
+        });
+
+        infobox.setMap(map);
         
         //grab the resourceSet, grab resources from resourceset
         resourceSet = jsonData.resourceSets[0].resources;
@@ -105,16 +110,39 @@ function GetUserLocation(position) {
             //center the map
             let center = map.getCenter(lat, lon);
     
+            
+
             //Create Entities Pushpins
             pushpins[i] = new Microsoft.Maps.Pushpin(center, {
                 title: poiName,
                 color: 'blue'
             });
+
+            Microsoft.Maps.Events.addHandler(pushpins[i], 'click', pushpinClicked(e));
+
+
+            infobox[i].setOptions({
+                location: e.target.getLocation(),
+                title: poiName[i],
+                description: "placeholder",
+                visible: true
+             });
+
+            
     
+            
+
+
+
+
+
             //Add the pushpins to the map
             map.entities.push(pushpins[i]);
     
         }//end for 
+
+        
+   
     
         //display POI results into text area
         for (let i = 0; i < pointsOfInterest.length; i++) { 
@@ -129,3 +157,4 @@ function GetUserLocation(position) {
             map.entities.remove(pushpins[i]);
         }
     }
+
